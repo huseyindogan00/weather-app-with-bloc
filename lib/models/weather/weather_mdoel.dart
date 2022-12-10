@@ -1,12 +1,10 @@
-class WeatherModel {}
-
-class Weather {
+class WeatherModel {
   Location? location;
   Current? current;
 
-  Weather({this.location, this.current});
+  WeatherModel({this.location, this.current});
 
-  Weather.fromJson(Map<String, dynamic> json) {
+  WeatherModel.fromJson(Map<String, dynamic> json) {
     location = json['location'] != null ? new Location.fromJson(json['location']) : null;
     current = json['current'] != null ? new Current.fromJson(json['current']) : null;
   }

@@ -2,6 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:weather_app_with_bloc/data/service/weather_api_client.dart';
 import 'package:weather_app_with_bloc/data/weather_repository.dart';
 import 'package:weather_app_with_bloc/locator.dart';
 import 'package:weather_app_with_bloc/models/weather/weather_mdoel.dart';
@@ -17,7 +18,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       if (event is FetchWeatherEvent) {
         yield WeatherLoadingState();
         try {
-          final weatherModel = await weatherRepository.getWeather(event.cityName);
+          final weatherModel = await weatherRepository.getWeather(event.cityName, AirQualityData.no);
           WeatherLoaded(weatherModel: weatherModel);
         } catch (e) {
           yield WeatherErrorState();

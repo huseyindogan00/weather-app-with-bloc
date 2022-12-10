@@ -9,10 +9,9 @@ class WeatherApiClient {
 
   final http.Client httpClient = http.Client();
 
-  Future<Weather> getWeather(String cityName, AirQualityData airQualityData) async {
-    //final url = '$baseUrl&q=$cityName&aqi=${airQualityData ? 'yes' : 'no'}';
-
-    final url = Uri.https(baseUrl, '/v1/current.json', {'key': ApiKey.API_KEY, 'q': cityName, 'aqi': airQualityData});
+  Future<WeatherModel> getWeather(String cityName, AirQualityData airQualityData) async {
+    final url = Uri.https(
+        baseUrl, '/v1/current.json', {'key': ApiKey.API_KEY, 'q': cityName, 'aqi': airQualityData.stringExtension});
 
     final response = await httpClient.get(url);
 
@@ -22,8 +21,12 @@ class WeatherApiClient {
 
     final requestAnswer = jsonDecode(response.body);
 
-    return Weather.fromJson(requestAnswer);
+    return WeatherModel.fromJson(requestAnswer);
   }
 }
 
 enum AirQualityData { yes, no }
+
+extension AirQualityDataExtension on AirQualityData {
+  String get stringExtension => this.name;
+}
