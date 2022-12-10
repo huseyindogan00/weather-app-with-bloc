@@ -1,24 +1,33 @@
+// ignore_for_file: must_be_immutable
+
 part of 'weather_bloc.dart';
 
+@immutable
 abstract class WeatherState extends Equatable {
-  WeatherState({Object? object}) {
-    if (object != null) props.add(object);
-  }
-
-  @override
-  List<Object> get props => [];
-}
-
-class WeatherInitial extends WeatherState {}
-
-class WeatherLoadingState extends WeatherState {}
-
-class WeatherLoaded extends WeatherState {
   final WeatherModel weatherModel;
 
-  WeatherLoaded({required this.weatherModel}) {
-    props.add(weatherModel);
-  }
+  const WeatherState(this.weatherModel);
+
+  @override
+  List<Object> get props => [weatherModel];
 }
 
-class WeatherErrorState extends WeatherState {}
+class WeatherInitialState extends WeatherState {
+  const WeatherInitialState(super.weatherModel);
+}
+
+class WeatherLoadingState extends WeatherState {
+  const WeatherLoadingState(super.weatherModel);
+}
+
+class WeatherLoadedState extends WeatherState {
+  final WeatherModel weatherModel;
+
+  const WeatherLoadedState({required this.weatherModel}) : super(weatherModel);
+}
+
+class WeatherErrorState extends WeatherState {
+  const WeatherErrorState(super.weatherModel);
+}
+
+enum WeatherStatus { initial, loading, loaded, error }

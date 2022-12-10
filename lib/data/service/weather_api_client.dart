@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:weather_app_with_bloc/models/weather/weather_mdoel.dart';
+import 'package:weather_app_with_bloc/models/weather/weather_model.dart';
 import 'package:weather_app_with_bloc/utilities/api_key.dart';
 
 class WeatherApiClient {
